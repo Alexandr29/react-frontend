@@ -1,28 +1,45 @@
-import React, { Component } from 'react';
-import logo from './logo.svg';
-import './App.css';
+import React, {Component} from 'react';
+import Content from "./Content";
+import Button from '@material-ui/core/Button';
+import List from "@material-ui/core/es/List/List";
 
 class App extends Component {
-  render() {
-    return (
-      <div className="App">
-        <header className="App-header">
-          <img src={logo} className="App-logo" alt="logo" />
-          <p>
-            Edit <code>src/App.js</code> and save to reload.
-          </p>
-          <a
-            className="App-link"
-            href="https://reactjs.org"
-            target="_blank"
-            rel="noopener noreferrer"
-          >
-            Learn React
-          </a>
-        </header>
-      </div>
-    );
-  }
+
+    constructor(props) {
+        super(props)
+        this.state = {
+            text: 'Войти',
+            isOpenUsers: false,
+            isUpdated: 'No'
+        }
+    }
+
+
+    render() {
+        let text = this.state.text
+        const users = this.state.isOpenUsers && <Content/>
+        return (
+            <div className="container">
+                <div className="App">
+                    <List>
+                        <div align="right">
+                            <Button variant="contained" color="primary" onClick={this.openUsers}>{text}</Button>
+                        </div>
+                    </List>
+                    {users}
+                </div>
+            </div>
+        );
+    }
+
+    openUsers = () => {
+        if (!this.state.isOpenUsers) {
+            this.setState({text: 'Выйти'})
+        } else this.setState({text: 'Войти'})
+        this.setState({
+            isOpenUsers: !this.state.isOpenUsers
+        })
+    }
 }
 
 export default App;
